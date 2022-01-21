@@ -1,0 +1,37 @@
+{% block content %}
+<style>
+    table,
+    th{
+        border: 1px solid black;
+    }
+</style>
+<div>Test</div>
+<table>
+    <tr>
+        <th>Description</th>
+        <th>Quantity</th>
+        <th> Delete Option</th>
+    </tr>
+    {% for todo in todos %}
+    <tr>
+        <td>{{ todo.description }}</td>
+        <td>{{ todo.quantity }}</td>
+        <td><form method="POST" action="{% url 'delete_todo' todo.id %}">
+            {% csrf_token %}<input type="submit" value="DELETE">
+         </form></td>
+    </tr>
+    {% endfor %}
+    <td>Total Quantity: {{total}}</td>
+</table>
+
+{% if todos.id < 1 %}
+<p>No todos yet</p>
+{% endif %}
+
+
+<form action="" method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit">
+</form>
+{% endblock %}
